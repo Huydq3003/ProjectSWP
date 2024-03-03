@@ -96,7 +96,7 @@ public class QuotationDAO {
                 quo= new ArrayList<>();
                 while (rs.next()) {
                     int quotationID = rs.getInt("quotation_id");
-                    Customer cus = new CustomerDAO().searchCustomerUpdate(customerId);
+//                    Customer cus = new CustomerDAO().searchCustomerUpdate(customerId);
                 }
             }
         } catch (Exception ex) {

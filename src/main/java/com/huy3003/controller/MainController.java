@@ -34,6 +34,14 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            String action = request.getParameter("action");
+            if (LOGIN.equals(action)) {
+                url = LOGIN_CONTROLLER;
+            }
+            if (LOGOUT.equals(action)) {
+                url = LOGOUT_CONTROLLER;
+            }
+
         } catch (Exception ex) {
             log("Error at MainController: " + ex.toString());
         } finally {

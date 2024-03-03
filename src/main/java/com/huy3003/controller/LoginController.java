@@ -7,6 +7,7 @@ package com.huy3003.controller;
 import com.huy3003.admin.Admin;
 import com.huy3003.customer.Customer;
 import com.huy3003.guest.Guest;
+import com.huy3003.quotation.Cart;
 import com.huy3003.staff.Staff;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,20 +46,22 @@ public class LoginController extends HttpServlet {
             Guest guest = (Guest) session.getAttribute("account.guest");
             
             if (cus != null) {
-                request.getRequestDispatcher("MainController?").forward(request, response);
+                Cart cart = new Cart();
+                session.setAttribute("CART", cart);
+                request.getRequestDispatcher("MainController?action=LoadProcessQuotation").forward(request, response);
             }
             else if (ad != null) {
                 request.getRequestDispatcher("getAllAccount").forward(request, response);
             }
             else if (staff != null) {
-                
+                request.getRequestDispatcher("MainController?action=").forward(request, response);
             }
             else if (guest != null) {
-                
+                request.getRequestDispatcher("").forward(request, response);
             }
             else {
                 request.setAttribute("ERROR", "Your Account Not Allow!!!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
     }
