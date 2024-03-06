@@ -14,12 +14,17 @@ import java.sql.Date;
  */
 public class Quotation {
     
-    private Customer cus;
+    private int id;
     private String name;
     private Date dateCreate;
     private Date expirationDate;
     private Float priceQuote;
+    private boolean status;
+    private Customer cus;
     private Staff staff;
+
+    public Quotation() {
+    }
 
     public Quotation(Customer cus, String name, Date dateCreate, Date expirationDate, Float priceQuote, Staff staff) {
         this.cus = cus;

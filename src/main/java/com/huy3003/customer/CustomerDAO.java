@@ -4,12 +4,17 @@
  */
 package com.huy3003.customer;
 
+import com.huy3003.admin.Admin;
+import com.huy3003.admin.AdminDAO;
 import com.huy3003.product.Product;
+import com.huy3003.staff.Staff;
+import com.huy3003.staff.StaffDAO;
 import com.huy3003.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,34 @@ public class CustomerDAO {
     private static final String DELETE = "DELETE account.customer WHERE id=?";
     private static final String UPDATE = "UPDATE account.customer SET first_name=?, last_name=?, email=?, phone=?, address=? WHERE id=?";
     private static final String CREATE = "INSERT INTO tblUsers(first_name, last_name, email, phone, address, password) VALUES(?,?,?,?,?,?)";
-
+    private static final String GET_ALL_CUS = "SELECT id, first_name, last_name, email, phone, address from account.customer";
+    
+    public static ArrayList<Customer> getAllCus() {
+        ArrayList<Customer> cus = new ArrayList<>();
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                st = conn.createStatement();
+                rs = st.executeQuery(GET_ALL_CUS);
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String address = rs.getString("address");
+                    Customer cuss = new Customer(id, firstName, lastName, email, phone, address);
+                    cus.add(cuss);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return cus;
+    }
     public Customer checkLogin(String email, String password) throws SQLException {
         Customer loginCustomer = null;
         Connection conn = null;
@@ -42,7 +74,7 @@ public class CustomerDAO {
                     String lastName = rs.getString("last_name");
                     String phone = rs.getString("phone");
                     String address = rs.getString("address");
-                    loginCustomer = new Customer(id, email, firstName, lastName, phone, address, "");
+                    loginCustomer = new Customer(id, firstName, lastName, email, "", phone, address);
                 }
             }
         } catch (Exception e) {
@@ -169,5 +201,9 @@ public class CustomerDAO {
             }
         }
         return result;
+    }
+
+    public Customer searchCustomerUpdate(int customerID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

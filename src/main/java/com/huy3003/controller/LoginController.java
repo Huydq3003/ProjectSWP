@@ -54,10 +54,7 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher("getAllAccount").forward(request, response);
             }
             else if (staff != null) {
-                request.getRequestDispatcher("MainController?action=").forward(request, response);
-            }
-            else if (guest != null) {
-                request.getRequestDispatcher("").forward(request, response);
+                request.getRequestDispatcher("MainController?action=LoadAllQuotationManager").forward(request, response);
             }
             else {
                 request.setAttribute("ERROR", "Your Account Not Allow!!!");

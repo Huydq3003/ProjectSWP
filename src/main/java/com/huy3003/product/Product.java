@@ -9,6 +9,7 @@ package com.huy3003.product;
  * @author huy
  */
 public class Product {
+    
     private int id;
     private String name;
     private String material;
